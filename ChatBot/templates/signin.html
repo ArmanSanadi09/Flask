@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Signup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #333);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #2b2b2b;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #f1c40f;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 14px;
+      color: #888;
+    }
+    button {
+      background: #f1c40f;
+      color: #000;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: royalblue;
+      color: #fff;
+    }
+    .toggle-link {
+      margin-top: 12px;
+      display: block;
+      cursor: pointer;
+      color: #f1c40f;
+    }
+    .error {
+      color: #e74c3c;
+      margin-bottom: 10px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Form -->
+    <div id="login-form">
+      <h2>Sign In</h2>
+      <form method="POST" action="/">
+        {% if error %}
+          <p class="error">{{ error }}</p>
+        {% endif %}
+        <input type="text" name="username" placeholder="Username" required>
+        <div class="password-wrapper">
+          <input type="password" id="login-pass" name="password" placeholder="Password" required>
+          <span class="toggle-password" onclick="togglePassword('login-pass')">👁</span>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <span class="toggle-link" onclick="toggleForm()">Don't have an account? Sign Up</span>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signup-form" class="hidden">
+      <h2>Sign Up</h2>
+      <form method="POST" action="/signup">
+        <input type="text" name="new_username" placeholder="Choose Username" required>
+        <div class="password-wrapper">
+          <input type="password" id="signup-pass" name="new_password" placeholder="Choose Password" required>
+          <span class="toggle-password" onclick="togglePassword('signup-pass')">👁</span>
+        </div>
+        <button type="submit">Register</button>
+      </form>
+      <span class="toggle-link" onclick="toggleForm()">Already have an account? Sign In</span>
+    </div>
+  </div>
+
+  <script>
+    function toggleForm() {
+      document.getElementById("login-form").classList.toggle("hidden");
+      document.getElementById("signup-form").classList.toggle("hidden");
+    }
+
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+  </script>
+</body>
+</html>
